@@ -6,6 +6,7 @@ import subprocess
 import pymongo
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
+from security import safe_command
 
 load_dotenv()
 
@@ -243,7 +244,7 @@ command = 'mongo-connector -m "%s"  -c mongo-connector-config.json --target-url 
 
 print('Starting connector ....', command)
 
-process = subprocess.Popen(command, shell=True)
+process = safe_command.run(subprocess.Popen, command, shell=True)
 
 process.wait()
 
